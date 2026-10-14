@@ -1,0 +1,79 @@
+const express = require('express');
+const sqlite3 = require('sqlite3').verbose();
+const cors = require('cors');
+
+const app = express();
+const PORT = 3000;
+
+// Middleware
+app.use(express.json());
+app.use(cors());
+
+// Connect to SQLite Database
+const db = new sqlite3.Database('./shop.db', (err) => {
+    if (err) {
+        console.error('Error connecting to database:', err.message);
+    } else {
+        console.log('Connected to SQLite database.');
+    }
+});
+
+// Create Products Table
+db.run(`CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    price REAL NOT NULL,
+    image TEXT NOT NULL
+)`, (err) => {
+    if (!err) {
+        // Insert initial dummy products if table is empty
+        db.get("SELECT COUNT(*) as count FROM products", (err, row) => {
+            if (row.count === 0) {
+                const initialProducts = [
+                    ['ገመድ አልባ የጆሮ ማዳመጫ', 2500, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500'],
+                    ['ዘመናዊ የእጅ ሰዓት', 3800, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500'],
+                    ['ስፖርታዊ ጫማ (Sneakers)', 4200, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500'],
+                    ['ዲጂታል ካሜራ', 15000, 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500']
+                ];
+                const stmt = db.prepare("INSERT INTO products (name, price, image) VALUES (?, ?, ?)");
+                initialProducts.forEach(p => stmt.run(p));
+                stmt.finalize();
+                console.log('Initial products added.');
+            }
+        });
+    }
+});
+
+// API Routes
+
+// 1. Get all products
+app.get('/api/products', (req, res) => {
+    db.all("SELECT * FROM products", [], (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json(rows);
+    });
+});
+
+// 2. Add a new product (Admin feature)
+app.post('/api/products', (req, res) => {
+    const { name, price, image } = req.body;
+    if (!name || !price || !image) {
+        return res.status(400).json({ error: 'እባክዎ ሁሉንም መረጃዎች ይሙሉ!' });
+    }
+    
+    const sql = `INSERT INTO products (name, price, image) VALUES (?, ?, ?)`;
+    db.run(sql, [name, price, image], function(err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ id: this.lastID, name, price, image });
+    });
+});
+
+// Start Server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
