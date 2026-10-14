@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>የእኔ ሱቅ - ኦንላይን ግብይት</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl font-bold text-indigo-600">🛒 ሱቃችን</span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-gray-600 font-medium">
+                <a href="#" class="text-indigo-600">መነሻ ገጽ</a>
+                <a href="#products" class="hover:text-indigo-600">ዕቃዎች</a>
+                <a href="#about" class="hover:text-indigo-600">ስለ እኛ</a>
+                <a href="#contact" class="hover:text-indigo-600">እውቂያ</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative bg-indigo-50 text-indigo-600 p-2 rounded-full hover:bg-indigo-100 transition">
+                    <i class="fa-solid fa-cart-shopping text-lg"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-16 px-4 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-3xl sm:text-5xl font-extrabold mb-4">ምርጥ ጥራት ያላቸው እቃዎች በአንድ ቦታ</h1>
+            <p class="text-lg text-indigo-100 mb-8">ይዙዙ፣ ፈጣን እና አስተማማኝ የቤት ዴሊቨሪ አገልግሎት ያግኙ!</p>
+            <a href="#products" class="bg-white text-indigo-600 font-bold px-8 py-3 rounded-full shadow-lg hover:bg-gray-100 transition">ዕቃዎችን ይመልከቱ</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <main id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">የምናቀርባቸው ዕቃዎች</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            
+            <!-- Product 1 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Headphones" class="w-full h-48 object-cover">
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800">ገመድ አልባ  የጆሮ ማዳመጫ</h3>
+                        <p class="text-indigo-600 font-semibold mt-1">2,500 ብር</p>
+                    </div>
+                    <button onclick="addToCart('ገመድ አልባ  የጆሮ ማዳመጫ', 2500)" class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition font-medium">ወደ ከረጢት ጨምር</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="Watch" class="w-full h-48 object-cover">
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800">ዘመናዊ የእጅ ሰዓት</h3>
+                        <p class="text-indigo-600 font-semibold mt-1">3,800 ብር</p>
+                    </div>
+                    <button onclick="addToCart('ዘመናዊ የእጅ ሰዓት', 3800)" class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition font-medium">ወደ ከረጢት ጨምር</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" alt="Shoes" class="w-full h-48 object-cover">
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800">ስፖርታዊ ጫማ (Sneakers)</h3>
+                        <p class="text-indigo-600 font-semibold mt-1">4,200 ብር</p>
+                    </div>
+                    <button onclick="addToCart('ስፖርታዊ ጫማ (Sneakers)', 4200)" class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition font-medium">ወደ ከረጢት ጨምር</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between">
+                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500" alt="Camera" class="w-full h-48 object-cover">
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800">ዲጂታል ካሜራ</h3>
+                        <p class="text-indigo-600 font-semibold mt-1">15,000 ብር</p>
+                    </div>
+                    <button onclick="addToCart('ዲጂታል ካሜራ', 15000)" class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition font-medium">ወደ ከረጢት ጨምር</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Shopping Cart Sidebar Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex justify-end">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col p-6">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h3 class="text-xl font-bold text-gray-800">የግዢ ከረጢት (Cart)</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-800 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div id="cart-items" class="flex-1 overflow-y-auto py-4 space-y-4">
+                <!-- Cart items will be injected here -->
+                <p class="text-gray-500 text-center py-8"> ከረጢቱ ባዶ ነው።</p>
+            </div>
+
+            <div class="border-t pt-4">
+                <div class="flex justify-between font-bold text-lg mb-4">
+                    <span>ድምር፡</span>
+                    <span id="cart-total">0 ብር</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition shadow">ትዕዛዝ ይላኩ (Checkout)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-8 text-center mt-16">
+        <p class="text-gray-400">&copy; 2026 የእኔ ሱቅ. መብቱ በህግ የተጠበቀ ነው።</p>
+    </footer>
+
+    <!-- JavaScript for Cart Functionality -->
+    <script>
+        let cart = [];
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            alert(name + " ወደ ከረጢቱ ተጨምሯል!");
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            cartCount.innerText = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-500 text-center py-8">ከረጢቱ ባዶ ነው።</p>';
+                cartTotal.innerText = '0 ብር';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `
+                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">${item.name}</h4>
+                            <p class="text-sm text-indigo-600">${item.price} ብር</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+
+            cartItems.innerHTML = html;
+            cartTotal.innerText = total.toLocaleString() + ' ብር';
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('እባክዎ መጀመሪያ ዕቃዎችን ይምረጡ!');
+                return;
+            }
+            alert('እናመሰግናለን! ትዕዛዝዎ በተሳካ ሁኔታ ተቀባይነት አግኝቷል። በቅርቡ እናነጋግርዎታለን።');
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+    </script>
+</body>
+</html>
